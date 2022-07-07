@@ -1,32 +1,21 @@
-const express = require("express");
-// const { PORT } = require("./config.js");
-const cors = require("cors");
-const morgan = require("morgan");
-const app = express();
-const authRouter = require("./routes/auth");
+const app = require("./app");
+const { PORT } = require("./config");
 
-const { BadRequestError, NotFoundError } = require("./utils/errors");
+// app.use((req, res, next) => {
+//   return next(new NotFoundError());
+// });
 
-app.use(cors());
-app.use(express.json());
-app.use(morgan("tiny"));
-// app.use("/auth", authRouter);
+// app.use((err, req, res, next) => {
+//   const status = err.status || 500;
+//   const message = err.message;
 
-app.use((req, res, next) => {
-  return next(new NotFoundError());
-});
+//   return res.status(status).json({
+//     error: { message, status },
+//   });
+// });
 
-app.use((err, req, res, next) => {
-  const status = err.status || 500;
-  const message = err.message;
-
-  return res.status(status).json({
-    error: { message, status },
-  });
-});
-
-const PORT = 3001;
+// const PORT = 3001;
 
 app.listen(PORT, () => {
-  console.log(`Server running http://localhost:${PORT}`);
+  console.log(`🚀 Server running http://localhost:${PORT}`);
 });

@@ -1,34 +1,30 @@
-// Imports
-const { NotFoundError } = require("./utils/errors");
-const authRoutes = require("./routes/auth");
-
-// Libraries and packages
 const express = require("express");
-const cors = require("cors");
 const morgan = require("morgan");
-
 const app = express();
+const cors = require("cors");
+const authRoutes = require("./routes/auth");
+const User = require("./models/user");
 
-// Middleware
+// const storeRouter = require("./routes/store");
+const { BadRequestError, NotFoundError } = require("./utils/errors");
+
 app.use(morgan("tiny"));
-app.use(cors());
 app.use(express.json());
-
+app.use(cors());
 app.use("/auth", authRoutes);
+// app.use(bodyParser.json());
 
 // Handle 404 errors
-app.use((res, req, next) => {
+app.use((req, res, next) => {
   return next(new NotFoundError());
 });
 
 /* Generic error handler - anything that is unhandled will be handled here */
-app.use((error, req, res, next) => {
-  const status = error.status || 500;
-  const message = error.message;
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message;
 
-  return res.status(status).json({
-    error: { message, status },
-  });
+  return res.status(status).json({ error: { message, status } });
 });
 
 module.exports = app;
