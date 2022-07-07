@@ -231,3 +231,175 @@ export default function Signup({ setAppState }) {
     </div>
   );
 }
+
+// import React from "react"
+// import apiClient from "../../services/apiClient"
+// import { useNavigate } from "react-router-dom"
+// import { Box, Button, FieldStack, FieldWrapper, InputField, SelectMenu, Heading, Stack, Text } from "bumbag"
+
+// import "./Register.css"
+
+// function sleep(ms) {
+//   return new Promise((resolve) => setTimeout(resolve, ms))
+// }
+
+// const Register = ({ setAppState }) => {
+//   const navigate = useNavigate()
+//   const [isLoading, setIsLoading] = React.useState(false)
+//   const [form, setForm] = React.useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     date: "",
+//     password: "",
+//     passwordConfirm: "",
+//     location: 1,
+//     agreeToTerms: false,
+//   })
+//   const [errors, setErrors] = React.useState({})
+
+//   const handleOnSubmit = async (e) => {
+//     e.preventDefault()
+//     setIsLoading(true)
+
+//     await sleep(2000)
+
+//     try {
+//       const { data, error, message } = await apiClient.register({
+//         firstName: form.firstName,
+//         lastName: form.lastName,
+//         email: form.email,
+//         password: form.password,
+//         date: form.date,
+//         location: form.location?.label,
+//       })
+//       if (error) {
+//         setErrors((e) => ({ ...e, form: message }))
+//         setIsLoading(false)
+//         return
+//       }
+
+//       if (data) {
+//         setAppState(data)
+//         navigate("/portal")
+//       }
+//     } catch (err) {
+//       setErrors((e) => ({ ...e, form: err }))
+//       setIsLoading(false)
+//     }
+//   }
+
+//   const handleOnChange = (e) => {
+// if (e.target.name === "password") {
+//   if (form.passwordConfirm && form.passwordConfirm !== e.target.value) {
+//     setErrors((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+//   } else {
+//     setErrors((e) => ({ ...e, passwordConfirm: null }))
+//   }
+// }
+// if (e.target.name === "passwordConfirm") {
+//   if (form.password && form.password !== e.target.value) {
+//     setErrors((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+//   } else {
+//     setErrors((e) => ({ ...e, passwordConfirm: null }))
+//   }
+// }
+// if (e.target.name === "email") {
+//   if (e.target.value.indexOf("@") === -1) {
+//     setErrors((e) => ({ ...e, email: "Please enter a valid email." }))
+//   } else {
+//     setErrors((e) => ({ ...e, email: null }))
+//   }
+// }
+//     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
+//   }
+
+//   return (
+//     <>
+//       <form onSubmit={handleOnSubmit} className="Register">
+//         <Heading use="h1" className="title">
+//           Register For a Vaccine
+//         </Heading>
+
+//         <br />
+
+//         <Box>
+//           <Heading use="h5">
+//             <>{Boolean(errors.form) ? <Text color="danger">{String(errors.form)}</Text> : null}</>
+//           </Heading>
+//         </Box>
+
+//         <br />
+
+// <Stack spacing="major-1">
+//   <FieldWrapper label="Choose a date" isRequired>
+//     <InputField type="date" name="date" value={form.date} onChange={handleOnChange} />
+//   </FieldWrapper>
+// </Stack>
+
+// <br />
+
+// <SelectMenu
+//   label="Select a location..."
+//   isRequired
+//   onChange={(location) => setForm((f) => ({ ...f, location }))}
+//   options={[
+//     { key: 1, label: "Local Clinic", value: "local clinic" },
+//     { key: 2, label: "Regional Hospital", value: "regional hospital" },
+//     { key: 3, label: "Care Center", value: "care center" },
+//     { key: 4, label: "Department of Health", value: "department of health" },
+//   ]}
+//   value={form.location}
+// />
+
+//         <br />
+//         <br />
+
+//         <FieldStack>
+//           <FieldStack orientation="horizontal">
+//             <FieldWrapper label="First Name" isRequired>
+//               <InputField name="firstName" value={form.firstName} onChange={handleOnChange} />
+//             </FieldWrapper>
+//             <FieldWrapper label="Last Name" isRequired>
+//               <InputField name="lastName" value={form.lastName} onChange={handleOnChange} />
+//             </FieldWrapper>
+//           </FieldStack>
+//           <FieldWrapper
+//             label="Email"
+//             isRequired
+//             description={errors.email ? <Text color="danger">{errors.email}</Text> : undefined}
+//           >
+//             <InputField name="email" type="email" value={form.email} onChange={handleOnChange} />
+//           </FieldWrapper>
+
+//           <InputField
+//             name="password"
+//             label="Password"
+//             type="password"
+//             isRequired
+//             value={form.password}
+//             onChange={handleOnChange}
+//           />
+//           <FieldWrapper
+//             label="Confirm Password"
+//             isRequired
+//             description={errors.passwordConfirm ? <Text color="danger">{errors.passwordConfirm}</Text> : undefined}
+//           >
+//             <InputField
+//               name="passwordConfirm"
+//               type="password"
+//               state={errors.passwordConfirm ? "danger" : undefined}
+//               value={form.passwordConfirm}
+//               onChange={handleOnChange}
+//             />
+//           </FieldWrapper>
+//           <Button isLoading={isLoading} palette="primary" type="submit">
+//             Register
+//           </Button>
+//         </FieldStack>
+//       </form>
+//     </>
+//   )
+// }
+
+// export default Register
